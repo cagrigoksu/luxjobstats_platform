@@ -1,5 +1,9 @@
 package com.luxjobstats.repository;
 
-public class SectorRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.luxjobstats.model.Sector;
+
+public interface SectorRepository extends JpaRepository<Sector, Long> {
     
 }
