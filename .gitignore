@@ -1,8 +1,10 @@
 **/__pycache__/
+**/.env
+.vscode/
 
-docker/.env
+
 docker/postgres/data/
 
 etl/env
-etl/.env
 etl/data/
+
