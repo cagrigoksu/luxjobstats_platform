@@ -21,19 +21,19 @@ public class FactSalariesByNationality {
 
     @ManyToOne
     @JoinColumn(name = "country_id")
-    private Country countryId;
+    private Country country;
 
     @ManyToOne
     @JoinColumn(name = "continent_id")
-    private Continent continentId;
+    private Continent continent;
 
     @ManyToOne
     @JoinColumn(name = "nationality_id")
-    private Nationality nationalityId;
+    private Nationality nationality;
 
     @ManyToOne
     @JoinColumn(name = "sector_id")
-    private Sector sectorId;
+    private Sector sector;
 
     @Column(name = "employee_count")
     private Integer employeeCount;

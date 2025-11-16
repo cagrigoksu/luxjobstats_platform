@@ -21,23 +21,23 @@ public class FactSalariesByCharacteristics {
 
     @ManyToOne
     @JoinColumn(name = "gender_id")
-    private Gender genderId;
+    private Gender gender;
 
     @ManyToOne
     @JoinColumn(name = "residence_nationality_id")
-    private ResidenceNationality residenceNationalityId;
+    private ResidenceNationality residenceNationality;
 
     @ManyToOne
     @JoinColumn(name = "age_id")
-    private Age ageId;
+    private Age age;
 
     @ManyToOne
     @JoinColumn(name = "sector_id")
-    private Sector sectorId;
+    private Sector sector;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
-    private Status statusId;
+    private Status status;
 
     @Column(name = "employee_count")
     private Integer employeeCount;

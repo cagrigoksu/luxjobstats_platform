@@ -1,7 +1,12 @@
 package com.luxjobstats.service;
 
+import com.luxjobstats.dto.TotalEmployeesByYearDTO;
 import com.luxjobstats.repository.FactSalariesByCharacteristicsRepository;
 import com.luxjobstats.repository.FactSalariesByNationalityRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,4 +35,25 @@ public class StatisticsService {
         // TODO: implement nationality-based stats
         return "not implemented yet";
     }
+
+    public List<TotalEmployeesByYearDTO> getTotalEmployeesByYear() {
+
+        List<Object[]> rows = factSalariesByNationalityRepository.getTotalEmployeesByYear();
+        List<TotalEmployeesByYearDTO> result = new ArrayList<>();
+
+        for (Object[] row : rows) {
+            Number yearNumber = (Number) row[0];
+            Number employeesNumber = (Number) row[1];
+
+            Integer year = yearNumber.intValue();
+            Long employees = employeesNumber.longValue();
+
+            result.add(new TotalEmployeesByYearDTO(year, employees));
+        }
+
+        return result;
+    }
+
+
+
 }
