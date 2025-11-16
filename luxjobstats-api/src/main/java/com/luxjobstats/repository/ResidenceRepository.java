@@ -1,5 +1,9 @@
 package com.luxjobstats.repository;
 
-public class ResidenceRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.luxjobstats.model.ResidenceNationality;
+
+public interface ResidenceRepository extends JpaRepository<ResidenceNationality, Long>{
     
 }
