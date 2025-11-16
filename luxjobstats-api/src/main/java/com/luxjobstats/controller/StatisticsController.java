@@ -23,7 +23,6 @@ public class StatisticsController {
 
     @GetMapping("/overview")
     public Object getOverview() {
-        // TODO: replace Object with a proper DTO later
         return statisticsService.getOverview();
     }
 

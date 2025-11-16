@@ -3,12 +3,13 @@ package com.luxjobstats.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
-public class TotalEmployeesByYearDTO {
+public class TrendPointDTO {
 
-    private Integer year;
-
+    private LocalDate date;
     private Long employees;
     
 }
