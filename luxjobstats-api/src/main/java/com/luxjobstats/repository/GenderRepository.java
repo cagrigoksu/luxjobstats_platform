@@ -1,5 +1,10 @@
 package com.luxjobstats.repository;
 
-public class GenderRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.luxjobstats.model.Gender;
+
+public interface GenderRepository extends JpaRepository<Gender, Long>{
+
     
 }
