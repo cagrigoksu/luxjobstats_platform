@@ -1,5 +1,6 @@
 package com.luxjobstats.service;
 
+import com.luxjobstats.dto.EmployeesBySectorDTO;
 import com.luxjobstats.dto.TotalEmployeesByYearDTO;
 import com.luxjobstats.repository.FactSalariesByCharacteristicsRepository;
 import com.luxjobstats.repository.FactSalariesByNationalityRepository;
@@ -53,6 +54,22 @@ public class StatisticsService {
 
         return result;
     }
+
+    public List<EmployeesBySectorDTO> getEmployeesBySectorForNationality(Long nationalityId) {
+        List<Object[]> rows =
+                factSalariesByNationalityRepository.getEmployeesBySectorForNationality(nationalityId);
+
+        List<EmployeesBySectorDTO> result = new ArrayList<>();
+
+        for (Object[] row : rows) {
+            String sectorName = (String) row[0];
+            Long employees = (Long) row[1];
+            result.add(new EmployeesBySectorDTO(sectorName, employees));
+        }
+
+        return result;
+    }
+
 
 
 

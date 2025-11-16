@@ -1,5 +1,6 @@
 package com.luxjobstats.controller;
 
+import com.luxjobstats.dto.EmployeesBySectorDTO;
 import com.luxjobstats.dto.TotalEmployeesByYearDTO;
 import com.luxjobstats.service.StatisticsService;
 
@@ -40,5 +41,12 @@ public class StatisticsController {
     public List<TotalEmployeesByYearDTO> getEmployeesByYear() {
         return statisticsService.getTotalEmployeesByYear();
     }
+
+    @GetMapping("/nationality/{id}/employees-by-sector")
+    public List<EmployeesBySectorDTO> getEmployeesBySectorForNationality(@PathVariable Long id) {
+
+        return statisticsService.getEmployeesBySectorForNationality(id);
+    }
+
 
 }

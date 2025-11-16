@@ -19,4 +19,14 @@ public interface FactSalariesByNationalityRepository extends JpaRepository<FactS
         """)
         List<Object[]> getTotalEmployeesByYear();
 
+        @Query("""
+        SELECT f.sector.sectorEn, SUM(f.employeeCount)
+        FROM FactSalariesByNationality f
+        WHERE f.nationality.id = :nationalityId
+        GROUP BY f.sector.sectorEn
+        ORDER BY SUM(f.employeeCount) DESC
+        """)
+        List<Object[]> getEmployeesBySectorForNationality(Long nationalityId);
+
+
 }
