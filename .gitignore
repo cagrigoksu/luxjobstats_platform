@@ -1,5 +1,7 @@
 # Environment
 **/.env
+**/.env.local
+**/.env.docker
 **/appsettings.json
 
 # Python
