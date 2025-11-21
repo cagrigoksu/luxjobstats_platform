@@ -1,10 +1,21 @@
-**/__pycache__/
+# Environment
 **/.env
+**/appsettings.json
+
+# Python
+**/__pycache__/
+
+# IDE
 .vscode/
+.idea/
 
-
+# Docker volumes
 docker/postgres/data/
 
+# ETL
 etl/env
 etl/data/
 
+# .NET 
+auth/src/AuthService/bin/
+auth/src/AuthService/obj/
