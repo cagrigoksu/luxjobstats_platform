@@ -1,6 +1,8 @@
+using AuthService.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace AuthService.Data;
 
@@ -13,5 +15,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
         : base(options)
     {
     }
+
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
 
 }

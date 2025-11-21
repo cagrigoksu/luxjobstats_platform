@@ -90,6 +90,7 @@ builder.Services.AddSwaggerGen(options =>
 
 //* my services
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<RefreshTokenService>();
 
 var app = builder.Build();
 
