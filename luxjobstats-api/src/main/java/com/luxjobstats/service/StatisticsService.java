@@ -154,6 +154,22 @@ public class StatisticsService {
         return result;
     }
 
+    //* /trend
+    public List<TrendPointDTO> getTrendOverTime() {
+
+        var rows = factSalariesByNationalityRepository.getTrendOverTime();
+        var trend = new ArrayList<TrendPointDTO>();
+
+        for (Object[] row : rows) {
+            LocalDate d = (LocalDate) row[0];
+            Long emp = (Long) row[1];
+            trend.add(new TrendPointDTO(d, emp));
+        }
+
+        return trend;
+    }
+
+
 
 
 

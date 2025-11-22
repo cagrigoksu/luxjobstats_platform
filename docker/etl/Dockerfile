@@ -17,8 +17,5 @@ COPY docker/etl/cronjob /etc/cron.d/etl-cron
 # Set correct permissions
 RUN chmod 0644 /etc/cron.d/etl-cron
 
-# IMPORTANT: DO NOT RUN "crontab /etc/cron.d/etl-cron"
-# Cron will automatically load /etc/cron.d/* files
-
 # Start cron
 CMD ["cron", "-f"]

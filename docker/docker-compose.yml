@@ -38,6 +38,22 @@ services:
     environment:
       - TZ=Europe/Luxembourg
 
+  java-api:
+    build:
+      context: ..
+      dockerfile: docker/luxjobstats-api/Dockerfile
+    container_name: luxjob_java_api
+    restart: always
+    env_file:
+      - ../luxjobstats-api/.env.docker
+    depends_on:
+      - postgres
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - default
 
 networks:
   default:
