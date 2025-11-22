@@ -1,9 +1,9 @@
 # Luxembourg Job Stats Platform
 
-# 📂 Project Structure
+# Project Structure
 
 ## LuxJobStats-API (Java Web API)
-![Java](https://img.shields.io/badge/Java-21-blue)
+![Java](https://img.shields.io/badge/Java-21-yellow)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.7-brightgreen)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-orange)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-informational)
@@ -28,7 +28,7 @@ Spring Data JPA interfaces that query the PostgreSQL tables created by the ETL.
     - `application.properties` for local  
     - `application-docker.properties` for Docker  
 
-### 📊 Sample Endpoints
+### Sample Endpoints
 | Endpoint | Description |
 |----------|-------------|
 | `GET /api/sectors` | List all sectors |
@@ -36,31 +36,38 @@ Spring Data JPA interfaces that query the PostgreSQL tables created by the ETL.
 | `GET /api/nationalities` | Nationalities dimension |
 | `GET /api/salaries/nationality/details` | Detailed nationality salary breakdown |
 
-## ETL Module
+---
 
-This project includes an ETL pipeline that automatically processes the Luxembourg job-market datasets used throughout the platform. The ETL runs inside a dedicated Docker container and performs the following steps:
+## ETL Module (Python Data Pipeline)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![Pandas](https://img.shields.io/badge/Pandas-2.3.3-orange)
+![NumPy](https://img.shields.io/badge/NumPy-2.3.4-yellow)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
+![Docker](https://img.shields.io/badge/Docker-Enabled-informational)
+
+
+The **ETL module** is responsible for collecting, transforming, and loading the official Luxembourg job-market datasets into PostgreSQL. This data is then consumed by the Java API.
+
+The ETL runs inside its own Docker container using a cron-based schedule.
 
 ### Extract
-
-* Reads the official `.xlsx` datasets (employment, salaries, sectors, nationalities, etc.).
-
-* Uses pandas to load and validate data.
+- Reads the official `.xlsx` datasets (salaries, sectors, nationalities, residence, etc.).
+- Uses **pandas** and **openpyxl** to load data from the local dataset directory.
+- Performs validation and schema checks before transformation.
 
 ### Transform
 
-* Cleans and standardizes fields (dates, numbers, naming).
-
-* Builds dimension tables (country, nationality, sector, gender, status…).
-
-* Automatically translates French labels into English using the **DeepL API**.
+- Cleans and standardizes fields (dates, numbers, naming).
+- Builds dimension tables (country, nationality, sector, gender, status…).
+- Automatically translates French labels into English using the **DeepL API**.
 Only missing translations are processed (*_en IS NULL_) to avoid unnecessary API calls.
 
 ### Load
 
-* Inserts/updates data into a **PostgreSQL** database.
+- Inserts/updates data into a **PostgreSQL** database.
 
 ### Infrastructure
 
-* Runs as a Dockerized service with its own environment.
-* Runs _**daily**_ dataset source check.
-* Logs all operations to `/var/log/etl.log`.
+- Runs as a Dockerized service with its own environment.
+- Runs _**daily**_ dataset source check.
+- Logs all operations to `/var/log/etl.log`.
