@@ -2,6 +2,7 @@ package com.luxjobstats.controller;
 
 import com.luxjobstats.dto.EmployeesBySectorDTO;
 import com.luxjobstats.dto.TotalEmployeesByYearDTO;
+import com.luxjobstats.dto.TrendPointDTO;
 import com.luxjobstats.service.StatisticsService;
 
 import java.util.List;
@@ -36,16 +37,23 @@ public class StatisticsController {
         return statisticsService.getNationalityStatistics(nationalityId);
     }
 
-    @GetMapping("/employees-by-year")
-    public List<TotalEmployeesByYearDTO> getEmployeesByYear() {
-        return statisticsService.getTotalEmployeesByYear();
-    }
-
     @GetMapping("/nationality/{id}/employees-by-sector")
     public List<EmployeesBySectorDTO> getEmployeesBySectorForNationality(@PathVariable Long id) {
 
         return statisticsService.getEmployeesBySectorForNationality(id);
     }
+
+    @GetMapping("/employees-by-year")
+    public List<TotalEmployeesByYearDTO> getEmployeesByYear() {
+        return statisticsService.getTotalEmployeesByYear();
+    }
+
+    @GetMapping("/trend")
+    public List<TrendPointDTO> getTrendOverTime(){
+        return statisticsService.getTrendOverTime();
+    }
+
+
 
 
 }
