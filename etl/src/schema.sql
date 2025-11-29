@@ -1,13 +1,19 @@
-CREATE TABLE IF NOT EXISTS dim_country (
+CREATE TABLE IF NOT EXISTS dim_residence_on_nationality (
     id SERIAL PRIMARY KEY,
-    country_name_fr TEXT UNIQUE,
-    country_name_en TEXT
+    residence_fr TEXT UNIQUE,
+    residence_en TEXT
+);
+
+CREATE TABLE IF NOT EXISTS dim_residence_on_characteristics (
+    id SERIAL PRIMARY KEY,
+    residence_fr TEXT UNIQUE,
+    residence_en TEXT
 );
 
 CREATE TABLE IF NOT EXISTS dim_continent (
     id SERIAL PRIMARY KEY,
-    continent_name_fr TEXT UNIQUE,
-    continent_name_en TEXT
+    continent_fr TEXT UNIQUE,
+    continent_en TEXT
 );
 
 CREATE TABLE IF NOT EXISTS dim_nationality (
@@ -18,8 +24,8 @@ CREATE TABLE IF NOT EXISTS dim_nationality (
 
 CREATE TABLE IF NOT EXISTS dim_sector (
     id SERIAL PRIMARY KEY,
-    sector_name_fr TEXT UNIQUE,
-    sector_name_en TEXT
+    sector_fr TEXT UNIQUE,
+    sector_en TEXT
 );
 
 CREATE TABLE IF NOT EXISTS dim_gender (
@@ -34,11 +40,6 @@ CREATE TABLE IF NOT EXISTS dim_status (
     status_en TEXT
 );
 
-CREATE TABLE IF NOT EXISTS dim_residence_nationality (
-    id SERIAL PRIMARY KEY,
-    label_fr TEXT UNIQUE,
-    label_en TEXT
-);
 
 CREATE TABLE IF NOT EXISTS dim_age (
     id SERIAL PRIMARY KEY,
@@ -47,23 +48,23 @@ CREATE TABLE IF NOT EXISTS dim_age (
 );
 
 
-CREATE TABLE IF NOT EXISTS fact_salaries_by_nationality (
+CREATE TABLE IF NOT EXISTS fact_data_by_nationality (
     id SERIAL PRIMARY KEY,
     reference_date DATE,
-    country_id INT REFERENCES dim_country(id),
+    residence_id INT REFERENCES dim_residence_on_nationality(id),
     continent_id INT REFERENCES dim_continent(id),
     nationality_id INT REFERENCES dim_nationality(id),
     sector_id INT REFERENCES dim_sector(id),
-    employee_count INT
+    number_of_employee INT
 );
 
-CREATE TABLE IF NOT EXISTS fact_salaries_by_characteristics (
+CREATE TABLE IF NOT EXISTS fact_data_by_characteristics (
     id SERIAL PRIMARY KEY,
     reference_date DATE,
     gender_id INT REFERENCES dim_gender(id),
-    residence_nationality_id INT REFERENCES dim_residence_nationality(id),
+    residence_id INT REFERENCES dim_residence_on_characteristics(id),
     age_id INT REFERENCES dim_age(id),
     sector_id INT REFERENCES dim_sector(id),
     status_id INT REFERENCES dim_status(id),
-    employee_count INT
+    number_of_employee INT
 );
