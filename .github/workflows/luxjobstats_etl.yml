@@ -35,5 +35,17 @@ jobs:
           DATA_DWNLD_URL_1: ${{ secrets.DATA_DWNLD_URL_1 }}
           DATA_URL_2: ${{ secrets.DATA_URL_2 }}
           DATA_DWNLD_URL_2: ${{ secrets.DATA_DWNLD_URL_2 }}
-          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python src/main_etl.py
+
+      - name: Translate Dimensions with DeepL API
+        working-directory: ./etl
+        env:
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          PGSSLMODE: require
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+
+        run: python src/translate_dims.py
