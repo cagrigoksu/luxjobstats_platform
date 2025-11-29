@@ -23,7 +23,7 @@ def deepl_batch(texts):
             r = requests.post(DEEPL_URL, data=payload, timeout=10)
             if r.status_code == 429:
                 print("rate-limit, wait a bit...")
-                time.sleep(5 * (attempt + 1))  # 5,10,15,20 sec
+                time.sleep(5 * (attempt + 1))  # every 5 sec
                 continue
 
             r.raise_for_status()
@@ -90,13 +90,13 @@ def run():
     engine = get_engine()
 
     dims = [
-        ("dim_country", "country_name_fr", "country_name_en"),
-        ("dim_continent", "continent_name_fr", "continent_name_en"),
+        ("dim_country", "country_fr", "country_en"),
+        ("dim_continent", "continent_fr", "continent_en"),
         ("dim_nationality", "nationality_fr", "nationality_en"),
-        ("dim_sector", "sector_name_fr", "sector_name_en"),
+        ("dim_sector", "sector_fr", "sector_en"),
         ("dim_gender", "gender_fr", "gender_en"),
         ("dim_status", "status_fr", "status_en"),
-        ("dim_residence_nationality", "label_fr", "label_en"),
+        ("dim_residence_on_characteristics", "residence_fr", "residence_en"),
         ("dim_age", "age_label_fr", "age_label_en"),
     ]
 
