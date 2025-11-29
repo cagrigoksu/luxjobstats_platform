@@ -31,5 +31,9 @@ jobs:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           PGSSLMODE: require
+          DATA_URL_1: ${{ secrets.DATA_URL_1 }}
+          DATA_DWNLD_URL_1: ${{ secrets.DATA_DWNLD_URL_1 }}
+          DATA_URL_2: ${{ secrets.DATA_URL_2 }}
+          DATA_DWNLD_URL_2: ${{ secrets.DATA_DWNLD_URL_2 }}
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python src/main_etl.py
