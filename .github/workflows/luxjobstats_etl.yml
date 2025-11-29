@@ -1,0 +1,35 @@
+name: ETL Automation
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # every day 02:00
+  workflow_dispatch:      # manual run 
+
+jobs:
+  run-etl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: ./etl
+        run: pip install -r requirements.txt
+
+      - name: Run ETL
+        working-directory: ./etl
+        env:
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
+          POSTGRES_PORT: ${{ secrets.POSTGRES_PORT }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          PGSSLMODE: require
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python src/main_etl.py
