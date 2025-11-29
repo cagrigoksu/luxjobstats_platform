@@ -14,10 +14,15 @@
 # Docker volumes
 docker/postgres/data/
 
-# ETL
+# LSJ_ETL
 etl/env
 etl/data/
+etl/etl.code-workspace
 
-# .NET 
+# LJS_AUTH
+auth/auth.code-workspace
 auth/src/AuthService/bin/
 auth/src/AuthService/obj/
+
+# LSJ_API
+luxjobstats-api/luxjobstats-api.code-workspace
