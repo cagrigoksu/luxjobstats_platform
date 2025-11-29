@@ -90,7 +90,7 @@ def run():
     engine = get_engine()
 
     dims = [
-        ("dim_country", "country_fr", "country_en"),
+        ("dim_residence_on_nationality", "residence_fr", "residence_en"),
         ("dim_continent", "continent_fr", "continent_en"),
         ("dim_nationality", "nationality_fr", "nationality_en"),
         ("dim_sector", "sector_fr", "sector_en"),

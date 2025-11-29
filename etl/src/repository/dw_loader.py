@@ -10,14 +10,11 @@ def get_or_create_dim(engine, table_name, col_fr, col_en, values):
         return {}
 
     with engine.begin() as conn:
-        # load existing dims
         rows = conn.execute(text(f"SELECT id, {col_fr} FROM {table_name}"))
         existing = {r[1]: r[0] for r in rows.fetchall()}
 
-        # find new ones
         missing = [v for v in uniq if v not in existing]
 
-        # insert new dims (en same as fr at start)
         for fr_val in missing:
             res = conn.execute(
                 text(f"""
@@ -38,20 +35,20 @@ def process_dataset1_df(df, engine):
         print("[ETL] d1 empty")
         return
 
-    country_map = get_or_create_dim(engine, "dim_country", "country_fr", "country_en", df["country_residence"])
+    country_map = get_or_create_dim(engine, "dim_residence_on_nationality", "residence_fr", "residence_en", df["country_residence"])
     cont_map = get_or_create_dim(engine, "dim_continent", "continent_fr", "continent_en", df["continent"])
     nat_map = get_or_create_dim(engine, "dim_nationality", "nationality_fr", "nationality_en", df["nationality"])
     sect_map = get_or_create_dim(engine, "dim_sector", "sector_fr", "sector_en", df["sector"])
 
     fact = pd.DataFrame()
     fact["reference_date"] = df["reference_date"]
-    fact["country_id"] = df["country_residence"].map(country_map)
+    fact["residence_id"] = df["country_residence"].map(country_map)
     fact["continent_id"] = df["continent"].map(cont_map)
     fact["nationality_id"] = df["nationality"].map(nat_map)
     fact["sector_id"] = df["sector"].map(sect_map)
-    fact["employee_count"] = df["employee_count"]
+    fact["number_of_employee"] = df["employee_count"]
 
-    _check_missing(df, fact, ["country_id","continent_id","nationality_id","sector_id"], "d1")
+    _check_missing(df, fact, ["residence_id","continent_id","nationality_id","sector_id"], "d1")
 
     insert_dataframe(fact, "fact_data_by_nationality", engine)
 
@@ -71,13 +68,13 @@ def process_dataset2_df(df, engine):
     fact = pd.DataFrame()
     fact["reference_date"] = df["reference_date"]
     fact["gender_id"] = df["gender"].map(gender_map)
-    fact["residence_nationality_id"] = df["residence_nationality"].map(res_nat_map)
+    fact["residence_id"] = df["residence_nationality"].map(res_nat_map)
     fact["age_id"] = df["age"].map(age_map)
     fact["sector_id"] = df["sector"].map(sect_map)
     fact["status_id"] = df["status"].map(status_map)
-    fact["employee_count"] = df["employee_count"]
+    fact["number_of_employee"] = df["employee_count"]
 
-    _check_missing(df, fact, ["gender_id","residence_nationality_id","age_id","sector_id","status_id"], "d2")
+    _check_missing(df, fact, ["gender_id","residence_id","age_id","sector_id","status_id"], "d2")
 
     insert_dataframe(fact, "fact_data_by_characteristics", engine)
 
