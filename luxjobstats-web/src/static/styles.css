@@ -1,0 +1,99 @@
+html, body, #root { height: 100%; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial;
+  background: #0b1020;
+  color: #e7ecf3;
+}
+
+html, body { overflow: hidden; }
+
+.app-root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(9, 14, 31, 0.6);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.brand { font-weight: 700; }
+
+.nav { display: flex; gap: 8px; }
+
+.app-main {
+  flex: 1;
+  display: flex;
+  margin-top: 56px;
+}
+
+.centered {
+  flex: 1;
+  height: calc(100vh - 56px);
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  width: 360px;
+  max-width: 90vw;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: grid;
+  gap: 12px;
+}
+
+input {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #e7ecf3;
+}
+
+.btn {
+  height: 40px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+  background: #4f7cff;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-link {
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: #e7ecf3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 8px 0;
+}
+
+td input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
