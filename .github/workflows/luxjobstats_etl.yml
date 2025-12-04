@@ -2,11 +2,13 @@ name: ETL Automation
 
 on:
   schedule:
-    - cron: "0 2 * * *"   # every day 02:00
-  workflow_dispatch:      # manual run 
+    - cron: "0 13 * * *"     # Every day at 13:00 UTC
+  workflow_dispatch:
 
 jobs:
-  run-etl:
+
+  prepare_env:
+    name: Prepare Environment
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +24,22 @@ jobs:
         working-directory: ./etl
         run: pip install -r requirements.txt
 
-      - name: Run ETL
+
+  run_etl:
+    name: Run ETL (Download + Process + Load)
+    runs-on: ubuntu-latest
+    needs: prepare_env
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Run main ETL
         working-directory: ./etl
         env:
           POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
@@ -37,7 +54,22 @@ jobs:
           DATA_DWNLD_URL_2: ${{ secrets.DATA_DWNLD_URL_2 }}
         run: python src/main_etl.py
 
-      - name: Translate Dimensions with DeepL API
+
+  translate_dims:
+    name: Translate Dimension Tables
+    runs-on: ubuntu-latest
+    needs: run_etl
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Translate Dimensions
         working-directory: ./etl
         env:
           POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
@@ -47,8 +79,13 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           PGSSLMODE: require
           DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
-
         run: python src/translate_dims.py
-        
-      - name: Done
-        run: echo "ETL + Translation completed successfully"
+
+  done:
+    name: Pipeline Finished
+    runs-on: ubuntu-latest
+    needs: translate_dims
+
+    steps:
+      - name: Final Message
+        run: echo "ETL Pipeline Completed Successfully!"
