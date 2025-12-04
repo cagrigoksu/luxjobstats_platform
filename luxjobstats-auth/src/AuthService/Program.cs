@@ -9,6 +9,20 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var ljsOrigins = "_ljsOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: ljsOrigins,
+        policy  =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -101,10 +115,18 @@ if (!app.Environment.IsProduction())
     app.UseSwaggerUI();
 } 
 
-//* app. A > Z
+app.UseRouting();
+
+// cors
+app.UseCors(ljsOrigins);
+
 app.UseHttpsRedirection();
+
+// auth
 app.UseAuthentication();
 app.UseAuthorization();
+
+// endpoints
 app.MapControllers();
 
 app.Run();
