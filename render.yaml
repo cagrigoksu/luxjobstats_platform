@@ -1,6 +1,7 @@
 services:
   - name: luxjobstats-api
     type: web
+    runtime: docker
     rootDir: luxjobstats-api
     buildCommand: mvn -DskipTests clean package
     startCommand: java -jar target/*.jar
