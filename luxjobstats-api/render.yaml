@@ -1,0 +1,12 @@
+services:
+  - name: luxjobstats-api
+    type: web
+    rootDir: luxjobstats-api
+    env: nixpacks
+    buildCommand: mvn -DskipTests clean package
+    startCommand: java -jar target/*.jar
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
