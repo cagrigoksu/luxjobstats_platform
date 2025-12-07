@@ -1,7 +1,7 @@
 services:
   - name: luxjobstats-api
     type: web
-    runtime: docker
+    runtime: nixpacks
     rootDir: luxjobstats-api
     buildCommand: mvn -DskipTests clean package
     startCommand: java -jar target/*.jar
