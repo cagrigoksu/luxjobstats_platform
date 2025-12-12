@@ -1,6 +1,9 @@
-# Luxembourg Job Stats Platform
+# LJS - Luxembourg Job Stats Platform
 
 # Project Structure
+
+## LuxJobStats (React-TS Front-End)
+To-Do
 
 ## LuxJobStats-API (Java Web API)
 ![Java](https://img.shields.io/badge/Java-21-yellow)
